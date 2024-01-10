@@ -7,6 +7,7 @@ from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
 storage.reload()
+loaded_objects = storage.all()
 
 
 classes = {
