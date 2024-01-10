@@ -3,9 +3,11 @@
 
 
 import cmd
+import models
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
+    ruler = "="
     
     def do_quit(self, arg):
         """
@@ -25,10 +27,26 @@ class HBNBCommand(cmd.Cmd):
     
     def emptyline(self):
         """
-        Empty line
+        An empty line + ENTER shouldn't execute anything
         """
         pass
-
+    
+    def do_create(self, arg):
+        """
+        Creates a new inst of BaseModel, saves it (to the JSON file) and prints the id.
+        """
+        
+        class_name = arg.split(" ")[0]
+        
+        if not class_name:
+            print("** class name missing **")
+        elif class_name not in models.classes:
+            print("** class doesn't exist **")
+        else:
+            instance = models.classes[class_name]()
+            instance.save()
+            print(instance.id)
+        
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
