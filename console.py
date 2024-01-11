@@ -84,6 +84,36 @@ class HBNBCommand(cmd.Cmd):
                 print(models.loaded_objects[key])
             else:
                 print("** no instance found **")
+    
+    def do_destroy(self, arg):
+        """
+        Deletes an instance based on the class name and id.
+        
+        Usage: destroy <class_name> <instance_id>
+        
+        Args:
+            arg (str): The argument should contain <class_name> and <instance_id>.
+        """
+        
+        split_args = arg.split(" ")
+        class_name = split_args[0] if len(split_args) > 0 else None
+        obj_id = split_args[1] if len(split_args) > 1 else None
+        
+        if not class_name:
+            print("** class name missing **")
+        elif class_name not in models.classes:
+            print("** class doesn't exist **")
+        elif not obj_id:
+            print("** instance id missing **")
+        else:
+            key = f"{class_name}.{obj_id}"
+            if key in models.loaded_objects:
+                del models.loaded_objects[key]
+                models.storage.save()
+            else:
+                print("** no instance found **")
+    
+    do_delete = do_destroy
         
 
 if __name__ == '__main__':
