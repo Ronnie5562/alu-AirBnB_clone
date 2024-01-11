@@ -114,6 +114,29 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
     
     do_delete = do_destroy
+    
+    def do_all(self, arg):
+        """
+        Prints all string representation of all instances.
+        
+        Usage:
+            all
+            all <class_name>
+        
+        Args:
+            arg (str): The argument should contain <class_name>.
+        """
+        
+        split_args = arg.split(" ")
+        class_name = split_args[0] if len(split_args) > 0 else None
+        
+        if not class_name:
+            print([str(obj) for obj in models.loaded_objects.values()])
+        elif class_name not in models.classes:
+            print("** class doesn't exist **")
+        else:
+            print([str(obj) for obj in models.loaded_objects.values() 
+                   if type(obj) == models.classes[class_name]])
         
 
 if __name__ == '__main__':
