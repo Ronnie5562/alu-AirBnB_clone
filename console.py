@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
     
     def do_create(self, arg):
         """
-        Creates a new inst of BaseModel, saves it (to the JSON file) and prints the id.
+        Creates a new inst of BaseModel, saves it, and prints the id.
         
         Usage: create <class_name>
         
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: create <class_name> <instance_id>
         
         Args:
-            arg (str): The argument should contain <class_name> and <instance_id>.
+            arg (str): Argument should contain <class_name> <instance_id>.
         """
         
         split_args = arg.split(" ")
@@ -92,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: destroy <class_name> <instance_id>
         
         Args:
-            arg (str): The argument should contain <class_name> and <instance_id>.
+            arg (str): Argument should contain <class_name> <instance_id>.
         """
         
         split_args = arg.split(" ")
@@ -137,7 +137,54 @@ class HBNBCommand(cmd.Cmd):
         else:
             print([str(obj) for obj in models.loaded_objects.values() 
                    if type(obj) == models.classes[class_name]])
+            
+    def remove_quotes(self, arg):
+        """
+        Removes the quotes from the argument.
+        """
+        rules = {"\"": "", "\'": ""}
+        for key, value in rules.items():
+            arg = arg.replace(key, value)
+        return arg
+            
+    def do_update(self, arg):
+        """
+        Updates an instance based on the class name and id.
         
+        Usage: update <class_name> <instance_id> <attr_name> "<attr_value>"
+        
+        Args:
+            arg (str): <class_name> <instance_id> <attr_name> <attr_value>.
+        """
+        
+        split_args = arg.split(" ")
+        class_name = split_args[0] if len(split_args) > 0 else None
+        obj_id = split_args[1] if len(split_args) > 1 else None
+        attr_name = split_args[2] if len(split_args) > 2 else None
+        attr_value = split_args[3] if len(split_args) > 3 else None
+        
+        if not class_name:
+            print("** class name missing **")
+        elif class_name not in models.classes:
+            print("** class doesn't exist **")
+        elif not obj_id:
+            print("** instance id missing **")
+        elif not attr_name:
+            print("** attribute name missing **")
+        elif not attr_value:
+            print("** value missing **")
+        else:
+            key = f"{class_name}.{obj_id}"
+            forbidden_attrs = ['id', 'created_at', 'updated_at']
+            if key in models.loaded_objects:
+                if attr_name not in forbidden_attrs:
+                    setattr(models.loaded_objects[key], attr_name, 
+                        self.remove_quotes(attr_value))
+                    models.storage.save()
+                else:
+                    print(f"** Can't update the {attr_name} attribute **")
+            else:
+                print("** no instance found **")    
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
