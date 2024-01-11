@@ -45,7 +45,7 @@ class FileStorage:
         
         try:
             with open(self.__file_path, 'w') as file:
-                json.dump(obj_dict, file)
+                json.dump(obj_dict, file, indent=2)
         except FileNotFoundError:
             pass
     
