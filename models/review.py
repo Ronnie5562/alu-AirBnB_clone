@@ -21,6 +21,6 @@ class Review(BaseModel):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.place_id = Review.place_id
-        self.user_id = Review.user_id
-        self.text = Review.text
+        #self.place_id = Review.place_id
+        #self.user_id = Review.user_id
+        #self.text = Review.text
