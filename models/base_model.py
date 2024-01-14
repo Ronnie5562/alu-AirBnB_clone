@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines a BaseModel class that 
+This module defines a BaseModel class that
 defines all common attributes/methods for model classes
 """
 
@@ -13,7 +13,7 @@ class BaseModel:
     """
     This is the base model class.
     """
-    
+
     def __init__(self, *args, **kwargs):
         """
         Initialize public instance attributes.
@@ -29,14 +29,14 @@ class BaseModel:
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             models.storage.new(self)
-    
+
     def save(self):
         """
-        Updates the public instance attribute updated_at with the current datetime.
+        Updates the file storage with the new/updated information.
         """
         self.updated_at = datetime.now()
         models.storage.save()
-    
+
     def to_dict(self):
         """
         Convert the object to a dictionary representation.
@@ -44,16 +44,16 @@ class BaseModel:
         Returns:
             dict: A dictionary representation of the object.
         """
-        
+
         obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
         for key, value in self.__dict__.items():
             if key == 'created_at' or key == 'updated_at':
                 value = value.isoformat()
             obj_dict[key] = value
-        
+
         return obj_dict
-    
+
     def __str__(self):
         """
         Returns a string representation of the BaseModel class.
