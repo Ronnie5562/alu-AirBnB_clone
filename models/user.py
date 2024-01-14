@@ -5,6 +5,7 @@ This module contains the User class (Blueprint for creating user objects).
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """
     This is the user class.
@@ -19,13 +20,13 @@ class User(BaseModel):
     password = ""
     first_name = ""
     last_name = ""
-    
+
     def __init__(self, *args, **kwargs):
         """
         Initialize public instance attributes.
         """
         super().__init__(*args, **kwargs)
-        
+
         self.email = User.email
         self.password = User.password
         self.first_name = User.first_name

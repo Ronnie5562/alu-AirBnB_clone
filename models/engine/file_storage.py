@@ -21,7 +21,7 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    
+
     def all(self):
         """
         Returns the dictionary of all objects currently stored.
@@ -30,7 +30,7 @@ class FileStorage:
             dict: A dictionary of all objects currently stored.
         """
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """
         Adds a new object to the storage.
@@ -39,7 +39,7 @@ class FileStorage:
             obj (object): The object to be added to the storage.
         """
         self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
-        
+
     def save(self):
         """
         Saves the objects in the storage to a JSON file.
@@ -54,7 +54,7 @@ class FileStorage:
                 json.dump(obj_dict, file, indent=2)
         except FileNotFoundError:
             pass
-    
+
     def reload(self):
         """
         Reloads the objects from the JSON file into the storage.
@@ -66,6 +66,6 @@ class FileStorage:
                 for key, value in obj_dict.items():
                     self.__objects[key] = eval(
                         f"{value['__class__']}(**{value})")
-                
+
         except FileNotFoundError:
             pass

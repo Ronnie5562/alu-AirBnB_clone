@@ -5,10 +5,11 @@ This module contains the Place class (Blueprint for creating Place objects).
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """
     This is the place class
-    
+
     Attributes:
         city_id (str): The city id
         user_id (str): The user id
@@ -33,7 +34,7 @@ class Place(BaseModel):
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.city_id = Place.city_id
