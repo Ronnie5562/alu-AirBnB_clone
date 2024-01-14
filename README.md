@@ -27,7 +27,35 @@ The command interpreter helps us to manage the objects of our project by:
 
 ## How to start the interpreter
 
+```bash
+./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  delete  destroy  exit  help  q  quit  show  update
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit
+
+```
+
 ## How to use the interpreter
+
+## Tests
+To run all the tests execute the following command:
+
+```bash
+$ python3 -m unittest discover tests
+```
+You can also run a single test by specifying the test file:
+
+```bash
+$ python3 -m unittest tests/test_models/test_city.py
+
+```
+
 
 # Authors
 
