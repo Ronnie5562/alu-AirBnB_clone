@@ -25,7 +25,7 @@ class FileStorage:
     def all(self):
         """
         Returns the dictionary of all objects currently stored.
-        
+
         Returns:
             dict: A dictionary of all objects currently stored.
         """
@@ -34,7 +34,7 @@ class FileStorage:
     def new(self, obj):
         """
         Adds a new object to the storage.
-        
+
         Args:
             obj (object): The object to be added to the storage.
         """
@@ -45,10 +45,10 @@ class FileStorage:
         Saves the objects in the storage to a JSON file.
         """
         obj_dict = {}
-        
+
         for key, value in self.__objects.items():
             obj_dict[key] = value.to_dict()
-        
+
         try:
             with open(self.__file_path, 'w') as file:
                 json.dump(obj_dict, file, indent=2)
@@ -62,7 +62,7 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r') as file:
                 obj_dict = json.load(file)
-                
+
                 for key, value in obj_dict.items():
                     self.__objects[key] = eval(
                         f"{value['__class__']}(**{value})")
