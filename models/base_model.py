@@ -32,7 +32,7 @@ class BaseModel:
     
     def save(self):
         """
-        Updates the public instance attribute updated_at with the current datetime.
+        Updates the file storage with the new/updated information.
         """
         self.updated_at = datetime.now()
         models.storage.save()

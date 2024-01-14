@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module defines a FileStorage class that stores 
+This module defines a FileStorage class that stores
 and retrieves objects to and from a JSON file.
 """
 
@@ -16,7 +16,7 @@ from models.review import Review
 
 class FileStorage:
     """
-    This class represents a file storage system for storing and retrieving objects.
+    A file storage system for storing and retrieving objects.
     """
 
     __file_path = "file.json"
@@ -64,7 +64,8 @@ class FileStorage:
                 obj_dict = json.load(file)
                 
                 for key, value in obj_dict.items():
-                    self.__objects[key] = eval(f"{value['__class__']}(**{value})")
+                    self.__objects[key] = eval(
+                        f"{value['__class__']}(**{value})")
                 
         except FileNotFoundError:
             pass
