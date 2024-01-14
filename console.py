@@ -8,7 +8,6 @@ import models
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
-
     def do_quit(self, arg):
         """
         Quit the console.
@@ -29,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
 
         Usage:
             EOF
-        """        
+        """
         return True
 
     def emptyline(self):
@@ -136,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
         elif class_name not in models.classes:
             print("** class doesn't exist **")
         else:
-            print([str(obj) for obj in models.loaded_objects.values() 
+            print([str(obj) for obj in models.loaded_objects.values()
                    if type(obj) == models.classes[class_name]])
 
     def remove_quotes(self, arg):
@@ -179,13 +178,13 @@ class HBNBCommand(cmd.Cmd):
             forbidden_attrs = ['id', 'created_at', 'updated_at']
             if key in models.loaded_objects:
                 if attr_name not in forbidden_attrs:
-                    setattr(models.loaded_objects[key], attr_name, 
-                        self.remove_quotes(attr_value))
+                    setattr(models.loaded_objects[key], attr_name,
+                            self.remove_quotes(attr_value))
                     models.storage.save()
                 else:
                     print(f"** Can't update the {attr_name} attribute **")
             else:
-                print("** no instance found **")    
+                print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
